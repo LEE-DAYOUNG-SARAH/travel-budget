@@ -21,7 +21,7 @@ export function SettingsPage() {
 
   const exportJSON = async () => {
     setBusy(true)
-    try { download(`travel-ledger-${dayjs().format('YYYYMMDD-HHmm')}.json`, JSON.stringify(await api.exportAll(), null, 2), 'application/json') }
+    try { download(`travel-budget-${dayjs().format('YYYYMMDD-HHmm')}.json`, JSON.stringify(await api.exportAll(), null, 2), 'application/json') }
     catch { toast('내보내기 실패', 'err') } finally { setBusy(false) }
   }
   const exportCSV = async () => {
@@ -35,7 +35,7 @@ export function SettingsPage() {
         rows.push([tmap.get(e.tripId)?.title ?? '', e.spentAt.replace('T', ' '), CATEGORY_META[e.category].label, PAYMENT_META[e.paymentMethod].label,
           String(e.amountLocal), e.currency, String(e.amountBase), e.memo, e.place])
       }
-      download(`travel-ledger-${dayjs().format('YYYYMMDD-HHmm')}.csv`, '﻿' + rows.map((r) => r.map(esc).join(',')).join('\n'), 'text/csv;charset=utf-8')
+      download(`travel-budget-${dayjs().format('YYYYMMDD-HHmm')}.csv`, '﻿' + rows.map((r) => r.map(esc).join(',')).join('\n'), 'text/csv;charset=utf-8')
     } catch { toast('내보내기 실패', 'err') } finally { setBusy(false) }
   }
   const importJSON = async (f: File) => {
